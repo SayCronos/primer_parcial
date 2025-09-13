@@ -1,0 +1,50 @@
+@startuml DiagramaCasosUsoSimplificado
+!theme plain
+
+left to right direction
+
+actor "Estudiante" as EST
+actor "Administrador" as ADM
+actor "Sistema" as SIS
+
+package "Plataforma de Préstamo de Equipos" {
+    
+    usecase "Solicitar Préstamo" as UC1
+    usecase "Devolver Equipo" as UC2
+    usecase "Consultar Disponibilidad" as UC3
+    
+    usecase "Gestionar Equipos" as UC4
+    usecase "Evaluar Solicitudes" as UC5
+    usecase "Generar Reportes" as UC6
+    
+    usecase "Enviar Notificaciones" as UC7
+    usecase "Aplicar Multas" as UC8
+    usecase "Bloquear Morosos" as UC9
+}
+
+' Relaciones Estudiante
+EST --> UC1
+EST --> UC2
+EST --> UC3
+
+' Relaciones Administrador
+ADM --> UC4
+ADM --> UC5
+ADM --> UC6
+
+' Relaciones Sistema
+SIS --> UC7
+SIS --> UC8
+SIS --> UC9
+
+' Relaciones de inclusión
+UC1 ..> UC3 : <<include>>
+UC5 ..> UC7 : <<include>>
+UC8 ..> UC7 : <<include>>
+
+' Dependencias
+UC2 --> UC1 : completa
+UC8 --> UC2 : deriva de
+UC9 --> UC8 : consecuencia de
+
+@enduml

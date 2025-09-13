@@ -1,0 +1,117 @@
+@startuml DiagramaClasesSimplificado
+!theme plain
+
+class Usuario {
+    - idUsuario: String
+    - nombre: String
+    - email: String
+    - carrera: String
+    - estado: EstadoUsuario
+    --
+    + solicitarPrestamo(): Prestamo
+    + devolverEquipo(): Boolean
+    + esMoroso(): Boolean
+}
+
+class Equipo {
+    - idEquipo: String
+    - nombre: String
+    - marca: String
+    - categoria: CategoriaEquipo
+    - estado: EstadoEquipo
+    --
+    + estaDisponible(): Boolean
+    + cambiarEstado(): void
+}
+
+class Prestamo {
+    - idPrestamo: String
+    - fechaSolicitud: Date
+    - fechaLimite: Date
+    - fechaDevolucion: Date
+    - estado: EstadoPrestamo
+    --
+    + aprobar(): void
+    + rechazar(): void
+    + calcularRetraso(): Integer
+}
+
+class Multa {
+    - idMulta: String
+    - monto: Double
+    - fechaGeneracion: Date
+    - estado: EstadoMulta
+    --
+    + calcularMonto(): Double
+    + marcarPagada(): void
+}
+
+class Notificacion {
+    - mensaje: String
+    - tipo: TipoNotificacion
+    - fechaEnvio: Date
+    --
+    + enviar(): Boolean
+}
+
+class Administrador {
+    - idAdmin: String
+    - nombre: String
+    - permisos: String
+    --
+    + gestionarEquipos(): void
+    + evaluarSolicitudes(): void
+}
+
+class Sistema {
+    --
+    + generarRecordatorios(): void
+    + aplicarMultas(): void
+    + bloquearMorosos(): void
+}
+
+enum EstadoUsuario {
+    ACTIVO
+    BLOQUEADO
+}
+
+enum EstadoEquipo {
+    DISPONIBLE
+    PRESTADO
+    MANTENIMIENTO
+}
+
+enum EstadoPrestamo {
+    SOLICITADO
+    APROBADO
+    DEVUELTO
+    VENCIDO
+}
+
+enum EstadoMulta {
+    PENDIENTE
+    PAGADA
+}
+
+enum TipoNotificacion {
+    APROBACION
+    RECORDATORIO
+    MULTA
+}
+
+enum CategoriaEquipo {
+    LAPTOP
+    TABLET
+    SENSOR_IOT
+}
+
+' Relaciones
+Usuario ||--o{ Prestamo
+Equipo ||--o{ Prestamo
+Prestamo ||--o| Multa
+Usuario ||--o{ Multa
+Usuario ||--o{ Notificacion
+Sistema ||--|| Administrador
+Sistema ||--o{ Prestamo
+
+@enduml
