@@ -1,4 +1,4 @@
-# Historias de Usuario - Plataforma de Préstamo de Equipos (Versión Simplificada)
+# Historias de Usuario - Plataforma de Préstamo de Equipos
 
 ## Historia de Usuario 1: Solicitud de Préstamo
 
